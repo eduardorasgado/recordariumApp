@@ -4,7 +4,7 @@
     "description": "An empty new project",
     "slug": "todo",
     "privacy": "public",
-    "sdkVersion": "18.0.0",
+    "sdkVersion": "27.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
@@ -18,6 +18,12 @@
     },
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
   }
 }
