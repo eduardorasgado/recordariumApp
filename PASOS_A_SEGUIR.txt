@@ -1,0 +1,21 @@
+PASOS CON LOS QUE SE HIZO LA APLICACION:
+INSTALACIONES
+
+1) Intalamos EXPO XDE
+2) Instalamos gitbash para windows
+3) Instalamos Expo CLI
+4) Bajar la aplicacion EXPO para celular
+5) Descargamos QR Code Reader
+6) Descargamos sublime text
+
+6.1) Creamos una cuenta en expo
+
+PROCESO:
+
+7) abrimos EXPO y creamos un nuevo proyecto, esperamos que se instalen dependencias, entre ellas React, React Native
+8) Entramos a sublime text y buscamos la carpeta de el proyecto
+9) Modificamos y hacemos la app dentro de App.js
+10) Guardamos y en EXPO picamos share y escaneamos el codigo QR
+11) Pegamos el texto escaneado dentro de la app EXPO en el celular.
+12) esperamos a que se descarguen los datos de la computadora al celular via TCP/IP
+13) Ver resultado y en caso de necesitar cambiar hacerlo en sublime text y vemos en real time los resultados.

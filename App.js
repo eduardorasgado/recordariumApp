@@ -5,25 +5,42 @@ import {ScrollView,StyleSheet,View,Text,TextInput,Button,TouchableOpacity} from 
 
 //create stuff
 class App extends React.Component{
+  //variables globales, minidatabase de forma temporal
   state = {
     text: "",
     dosis: "",
     hora: "",
     todo: []
   }
+
+  //Funciones en ECMAScript 6 --> tendencia de Javascript
+  //agrega una capsula en tiepo real
   addTodo = () =>{
+    //contenido de la capsula
     var newTodo = this.state.text+" | "+this.state.dosis+" | "+this.state.hora;
+    //creamos un objeto de lista que va guardando las alarmas
     var arr = this.state.todo;
+    //guardando la capsula
     arr.push(newTodo);
+    //guardar los cambios
     this.setState({todo: arr, text: "", dosis:"", hora:""});
   }
+
+  //funcion para borrar la capsula agregada, en tiempo real al touch
   deleteTodo = (t) =>{
+    //toma el valor de la capsula a borrar
     var arr = this.state.todo;
+    //capturamos indice de la capsula que tocamos
     var pos = arr.indexOf(t);
+    //tomar la pocision en el arreglo de esa capsula
     arr.splice(pos,1);
+    //intercamba la capsula por un vacio
     this.setState({todo: arr});
   }
+
+  //funcion que hace que toda la app se actualice a cada segundo, en tiempo real
   renderTodos = () =>{
+    //toma el arreglo de todas las capsulas y las pone en la vista
     return this.state.todo.map(t=>{
       return (
         <TouchableOpacity key={t}>
@@ -36,12 +53,18 @@ class App extends React.Component{
     })
   }
   render(){
+    //esto es el bucle que permite renderear al celular
     return(
+      //Scrollview permite hacer scrolling o mover arriba y abajo
       <ScrollView>
 
       <View style={styles.wholeStyle}>
         <View style={styles.viewStyle}>
+         {/*EStos son los componentes de la aplicacion*/}
+          {/*TITULO*/}
           <Text style={styles.header}>Recordarium</Text>
+
+          {/*Donde metemos el texto a escribir*/}
           <TextInput 
             style={styles.inputStyle}
             onChangeText={(text)=>this.setState({text})}
@@ -60,11 +83,13 @@ class App extends React.Component{
             value={this.state.hora}
             placeholder={"Hora aqui"}
           />
+          {/*BOTON PARA ACEPTAR EL AGREGADO*/}
           <Button 
             title="Agregar nueva alarma"
             color="green"
             onPress={this.addTodo}
           />
+          {/*Mandamos a llamar todas las alarmas o capsulas*/}
           <View style={{marginTop: 100}}/>
           {this.renderTodos()}
         </View>
@@ -74,6 +99,8 @@ class App extends React.Component{
   }
 }
 
+//Estos son los estilos o el CSS que le da color, forma a los componentez
+//StyleSheet es un objeto de reac native que permite meter estilos
 const styles = StyleSheet.create({
   wholeStyle: {
     backgroundColor: "#0288D1",
@@ -121,5 +148,5 @@ const styles = StyleSheet.create({
   }
 });
 
-//export stuff
+//exportamos la aplicacion a la parte logica del celular
 export default App;
