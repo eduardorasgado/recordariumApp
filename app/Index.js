@@ -1,7 +1,7 @@
 //Aqui funciones y componentes
 
 import React, { Component } from 'react';
-import { ScrollView, Text, View, StyleSheet, ListView } from 'react-native';
+import { AsyncStorage, ScrollView, Text, View, StyleSheet, ListView } from 'react-native';
 
 import Clock from './Clock';
 import Navegacion from './Navbar';
@@ -29,13 +29,32 @@ class Index extends Component {
         this.onChangeDosis = this.onChangeDosis.bind(this);
 		this.onChangeDate = this.onChangeDate.bind(this);
 	}
+
+	componentWillMount(){
+		//persistencia de datos con JSON
+		//por default asyncstorage busca a rocksDB pero si no esta
+		//guarda todo en un textoplano
+		AsyncStorage.getItem('items').then((json) => {
+			try {
+				const items = JSON.parse(json)
+				//guardamos de nuevo el array en el state temporal items y datasource
+				this.handleState(items, items)
+			} catch (error){
+				console.log(error)
+			}
+		})
+	}
 	
-	handleState(items, dataSource){
+	handleState(items, dataSource, obj = {}){
+		//obj es medicina, dosis y date vacios
 		//nuevos item y data
 		this.setState({
 			items,
 			dataSource: this.state.dataSource.cloneWithRows(dataSource),
+			...obj
 		})
+		//guardamos los valores en async storage
+		AsyncStorage.setItem('items', JSON.stringify(items))
 	}
 
 	handleAddItems(){
@@ -54,7 +73,8 @@ class Index extends Component {
 			}
 		];
 		//guardando la variable en datasource y en items
-		this.handleState(newItems, newItems);
+		//y se quedan vacias las tres ultimas, son los obj
+		this.handleState(newItems, newItems, {medicina: '', dosis: '', date: ''});
 	}
 
 	onChangeMed(medicina){

@@ -38,7 +38,7 @@ class Input extends Component {
 									onPress={this.props.onHandleItems}
 				>
 					<Text style={styles.buttonText}>
-						Enviar
+						Listo
 					</Text>
 				</TouchableHighlight>
 			</View>
