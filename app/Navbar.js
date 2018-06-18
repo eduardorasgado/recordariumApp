@@ -9,12 +9,14 @@ class Navegacion extends Component {
 		return(
 			<View style={styles.block}>
 				<View style={styles.content}>				
-					<Button 
-			            title="Agregar"
-			            onPress={"hola"}
-			            style={styles.containerButton}
-		            />
-					<Text style={styles.textCenter}>Recordarium</Text>
+					<View style={styles.btnBox}>
+						<Button 
+			            	title="Agregar"
+			            	onPress={null}
+			            	style={styles.containerButton}
+		            	/>
+					</View>
+					<Text style={styles.textCenter}>Rum</Text>
 					
 				</View>
 				<Clock />
@@ -30,14 +32,17 @@ const styles = StyleSheet.create({
 	content: {
 		paddingTop: 30,
 		paddingBottom: 10,
+		marginLeft:10,
 		height:80,
 		flexDirection: 'row'
 	},
+	btnBox: {
+		paddingTop: 45,
+		zIndex: 1,
+	},
 	containerButton: {
 		position: 'absolute',
-		top: 30,
 		zIndex: 1,
-		left: 8,
 	},
 	textCenter: {
 		flex: 1,

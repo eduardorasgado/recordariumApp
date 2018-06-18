@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		marginBottom: 40,
 		marginTop: 15,
-		paddingLeft:30,
+		paddingLeft:60,
 		flexDirection: 'column'
 	},
 	timer: {
