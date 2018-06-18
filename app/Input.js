@@ -3,29 +3,33 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableHighlight } from 'react-native';
 import DatePicker from 'react-native-datepicker';
-import moment from 'moment';
 
 class Input extends Component {
 	render(){
 		return(
 			<View style={styles.container}>
 				<TextInput
+					//value={this.props.medicina}
 					placeholder="Medicamento"
 					style={styles.inputStyle}
 					onChangeMed={(medicina) => this.props.onChangeMed(medicina)}
+					
 				/>
 				<TextInput
+					//value={this.props.dosis}
 					placeholder="Dosis"
 					style={styles.inputStyle}
 					onChangeDosis={(dosis) => this.props.onChangeDosis(dosis)}
+					
 				/>
 				<DatePicker
 					style={styles.dateStyle}
-					mode={"datetime"}
+					date={this.props.date}
+					mode="datetime"
 					placeholder="Horario"
-					format="YYY-MM-DD HH:mm"
-					minDate={"2018-06-15"}
-					maxDate={"2050-01-01"}
+					format="YYYY-MM-DD HH:mm"
+					minDate="2018-06-15"
+					maxDate="2050-01-01"
 					confirmBtnText="Aceptar"
 					cancelBtnText="Cancelar"
 					onChangeDate={(date) => this.props.onChangeDate(date)}

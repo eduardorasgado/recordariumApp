@@ -8,7 +8,7 @@ import Navegacion from './Navbar';
 import Input from './Input';
 import Articulo from './Articulo';
 
-const ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2})
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 class Index extends Component {
 	state = {
@@ -19,7 +19,7 @@ class Index extends Component {
 		date: '',
 	}
 	
-	handleState = (items, dataSource) => {
+	handleState(items, dataSource){
 		//nuevos item y data
 		this.setState({
 			items,
@@ -28,7 +28,7 @@ class Index extends Component {
 	}
 
 	handleAddItems = () => {
-		if(!this.state.medicina && !this.state.dosos && !this.state.date){
+		if(!this.state.medicina && !this.state.dosis && !this.state.date){
 			return true;
 		}
 		// sintaxis ES6 para desempaquetar todos los items del array con comas
@@ -43,22 +43,22 @@ class Index extends Component {
 			}
 		];
 		//guardando la variable en datasource y en items
-		this.handleState(newItems, newItems)
+		this.handleState(newItems, newItems);
 	}
 
 	onChangeMed = (medicina) => {
 		this.setState({
-			medicina: medicina
+			medicina
 		})
 	}
-	onChangeDosis = (dosis) =>{
+	onChangeDosis = (dosis) => {
 		this.setState({
-			dosis: dosis
+			dosis
 		})
 	}
 	onChangeDate = (date) =>{
 		this.setState({
-			date: date
+			date
 		})
 	}
 	render(){
@@ -72,8 +72,13 @@ class Index extends Component {
 							onChangeDosis={this.onChangeDosis}
 							onChangeDate={this.onChangeDate}
 							onHandleItems={this.handleAddItems}
+							date={this.state.date}
+							medicina={this.state.medicina}
+							dosis={this.state.dosis}
 						/>
-						<Articulo />
+						<Articulo 
+							dataSource={this.state.dataSource}
+						/>
 					</ScrollView>
 				</View>
 			</View>
