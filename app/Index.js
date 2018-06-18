@@ -1,21 +1,50 @@
 //Aqui funciones y componentes
 
 import React, { Component } from 'react';
-import { ScrollView, Text, View, StyleSheet } from 'react-native';
+import { ScrollView, Text, View, StyleSheet, ListView } from 'react-native';
 
 import Clock from './Clock';
 import Navegacion from './Navbar';
 import Input from './Input';
 import Articulo from './Articulo';
 
-class Index extends Component {
+const ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2})
 
+class Index extends Component {
 	state = {
+		dataSource: ds.cloneWithRows([]),
+		items: [],
 		medicina: '',
 		dosis: '',
 		date: '',
 	}
 	
+	handleState = (items, dataSource) => {
+		//nuevos item y data
+		this.setState({
+			items,
+			dataSource: this.state.dataSource.cloneWithRows(dataSource),
+		})
+	}
+
+	handleAddItems = () => {
+		if(!this.state.medicina && !this.state.dosos && !this.state.date){
+			return true;
+		}
+		// sintaxis ES6 para desempaquetar todos los items del array con comas
+		const newItems = [
+			... this.state.items,
+			{
+				key: Date.now(),
+				medicina: this.state.medicina,
+				dosis: this.state.dosis,
+				date: this.state.date,
+				notification: false
+			}
+		];
+		//guardando la variable en datasource y en items
+		this.handleState(newItems, newItems)
+	}
 
 	onChangeMed = (medicina) => {
 		this.setState({
@@ -42,6 +71,7 @@ class Index extends Component {
 							onChangeMed={this.onChangeMed}
 							onChangeDosis={this.onChangeDosis}
 							onChangeDate={this.onChangeDate}
+							onHandleItems={this.handleAddItems}
 						/>
 						<Articulo />
 					</ScrollView>

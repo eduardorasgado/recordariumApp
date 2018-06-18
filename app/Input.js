@@ -31,7 +31,7 @@ class Input extends Component {
 					onChangeDate={(date) => this.props.onChangeDate(date)}
 				/>
 				<TouchableHighlight style={styles.button}
-									onPress={null}
+									onPress={this.props.onHandleItems}
 				>
 					<Text style={styles.buttonText}>
 						Enviar
@@ -61,10 +61,10 @@ const styles = StyleSheet.create({
 	  	marginTop: 20
 	  },
 	  button: {
-	  	backgroundColor: 'skyblue',
+	  	backgroundColor: '#81C04d',
 	  	paddingTop: 15,
 	  	paddingBottom: 15,
-	  	marginTop: 5
+	  	marginTop: 10
 	  },
 	  buttonText: {
 	  	textAlign: 'center'
