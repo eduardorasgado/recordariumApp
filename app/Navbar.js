@@ -9,14 +9,14 @@ class Navegacion extends Component {
 		return(
 			<View style={styles.block}>
 				<View style={styles.content}>				
-					<View style={styles.btnBox}>
+					
 						<Button 
 			            	title="Agregar"
 			            	onPress={null}
 			            	style={styles.containerButton}
 		            	/>
-					</View>
-					<Text style={styles.textCenter}>Rum</Text>
+					
+					<Text style={styles.textCenter}>Recordarium</Text>
 					
 				</View>
 				<Clock />
@@ -35,10 +35,6 @@ const styles = StyleSheet.create({
 		marginLeft:10,
 		height:80,
 		flexDirection: 'row'
-	},
-	btnBox: {
-		paddingTop: 45,
-		zIndex: 1,
 	},
 	containerButton: {
 		position: 'absolute',
