@@ -8,15 +8,26 @@ import Navegacion from './Navbar';
 import Input from './Input';
 import Articulo from './Articulo';
 
-const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
 
 class Index extends Component {
-	state = {
-		dataSource: ds.cloneWithRows([]),
-		items: [],
-		medicina: '',
-		dosis: '',
-		date: '',
+	constructor(props){
+		super(props);
+		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+		this.state = {
+			dataSource: ds.cloneWithRows([]),
+			items: [],
+			medicina: '',
+			dosis: '',
+			date: '',
+		}
+
+        this.handleState = this.handleState.bind(this);
+        this.handleAddItems = this.handleAddItems.bind(this);
+        this.onChangeMed = this.onChangeMed.bind(this);
+        this.onChangeDosis = this.onChangeDosis.bind(this);
+		this.onChangeDate = this.onChangeDate.bind(this);
 	}
 	
 	handleState(items, dataSource){
@@ -27,13 +38,13 @@ class Index extends Component {
 		})
 	}
 
-	handleAddItems = () => {
-		if(!this.state.medicina && !this.state.dosis && !this.state.date){
+	handleAddItems(){
+		if(!this.state.medicina || !this.state.dosis || !this.state.date){
 			return true;
 		}
 		// sintaxis ES6 para desempaquetar todos los items del array con comas
 		const newItems = [
-			... this.state.items,
+			...this.state.items,
 			{
 				key: Date.now(),
 				medicina: this.state.medicina,
@@ -46,17 +57,17 @@ class Index extends Component {
 		this.handleState(newItems, newItems);
 	}
 
-	onChangeMed = (medicina) => {
+	onChangeMed(medicina){
 		this.setState({
 			medicina
 		})
 	}
-	onChangeDosis = (dosis) => {
+	onChangeDosis(dosis){
 		this.setState({
 			dosis
 		})
 	}
-	onChangeDate = (date) =>{
+	onChangeDate(date){
 		this.setState({
 			date
 		})

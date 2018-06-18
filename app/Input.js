@@ -9,17 +9,17 @@ class Input extends Component {
 		return(
 			<View style={styles.container}>
 				<TextInput
-					//value={this.props.medicina}
+					value={this.props.medicina}
 					placeholder="Medicamento"
 					style={styles.inputStyle}
-					onChangeMed={(medicina) => this.props.onChangeMed(medicina)}
+					onChangeText={(medicina) => this.props.onChangeMed(medicina)}
 					
 				/>
 				<TextInput
-					//value={this.props.dosis}
+					value={this.props.dosis}
 					placeholder="Dosis"
 					style={styles.inputStyle}
-					onChangeDosis={(dosis) => this.props.onChangeDosis(dosis)}
+					onChangeText={(dosis) => this.props.onChangeDosis(dosis)}
 					
 				/>
 				<DatePicker
@@ -32,7 +32,7 @@ class Input extends Component {
 					maxDate="2050-01-01"
 					confirmBtnText="Aceptar"
 					cancelBtnText="Cancelar"
-					onChangeDate={(date) => this.props.onChangeDate(date)}
+					onDateChange={(date) => this.props.onChangeDate(date)}
 				/>
 				<TouchableHighlight style={styles.button}
 									onPress={this.props.onHandleItems}
