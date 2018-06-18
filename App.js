@@ -1,7 +1,7 @@
 //import stuff
 import React from 'react';
 import {ScrollView,StyleSheet,View,Text,TextInput,Button,TouchableOpacity} from 'react-native';
-
+import Clock from './Clock';
 
 //create stuff
 class App extends React.Component{
@@ -63,10 +63,10 @@ class App extends React.Component{
          {/*EStos son los componentes de la aplicacion*/}
           {/*TITULO*/}
           <Text style={styles.header}>Recordarium</Text>
-
+          <Clock />
           {/*Donde metemos el texto a escribir*/}
           <TextInput 
-            style={styles.inputStyle}
+            style={[styles.inputStyle, styles.stylo]}
             onChangeText={(text)=>this.setState({text})}
             value={this.state.text}
             placeholder={"medicamento aqui"}
@@ -145,6 +145,9 @@ const styles = StyleSheet.create({
     width: 320,
     margin: 10,
     borderRadius: 10,
+  },
+  stylo: {
+    marginTop:10,
   }
 });
 
