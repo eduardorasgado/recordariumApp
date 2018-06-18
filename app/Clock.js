@@ -32,10 +32,13 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		marginBottom: 40,
+		marginTop: 15,
+		paddingLeft:30,
+		flexDirection: 'column'
 	},
 	timer: {
-		color: 'white',
-		fontSize: 32,
+		color: 'green',
+		fontSize: 18,
 	}
 });
 
