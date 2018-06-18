@@ -8,7 +8,7 @@ import moment from 'moment';
 class Input extends Component {
 	render(){
 		return(
-			<View>
+			<View style={styles.container}>
 				<TextInput
 					placeholder="Medicamento"
 					style={styles.inputStyle}
@@ -19,22 +19,33 @@ class Input extends Component {
 					style={styles.inputStyle}
 					onChangeDosis={(dosis) => this.props.onChangeDosis(dosis)}
 				/>
-				<DatePicker 
+				<DatePicker
+					style={styles.dateStyle}
 					mode={"datetime"}
 					placeholder="Horario"
 					format="YYY-MM-DD HH:mm"
-					minDate={moment().format("LL")}
+					minDate={"2018-06-15"}
 					maxDate={"2050-01-01"}
 					confirmBtnText="Aceptar"
 					cancelBtnText="Cancelar"
 					onChangeDate={(date) => this.props.onChangeDate(date)}
 				/>
+				<TouchableHighlight style={styles.button}
+									onPress={null}
+				>
+					<Text style={styles.buttonText}>
+						Enviar
+					</Text>
+				</TouchableHighlight>
 			</View>
 			)
 	}
 }
 
 const styles = StyleSheet.create({
+	container: {
+		marginTop: 80,
+	},
 	inputStyle: {
 	    height: 40,
 	    width: 300,
@@ -46,6 +57,18 @@ const styles = StyleSheet.create({
 	    borderRadius: 20,
 	    fontSize: 24,
 	  },
+	  dateStyle: {
+	  	marginTop: 20
+	  },
+	  button: {
+	  	backgroundColor: 'skyblue',
+	  	paddingTop: 15,
+	  	paddingBottom: 15,
+	  	marginTop: 5
+	  },
+	  buttonText: {
+	  	textAlign: 'center'
+	  }
 });
 
 export default Input;
