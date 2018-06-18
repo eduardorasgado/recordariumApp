@@ -12,8 +12,8 @@ class Articulo extends Component {
 					dataSource={this.props.dataSource}
 					renderRow={({key, ...value}) => {
 						return(
-								<View>
-									<Text>{value.medicina}</Text>
+								<View style={styles.row}>
+									<Text style={styles.textIt}>{value.medicina}</Text>
 									<Text>{value.dosis}</Text>
 									<Text>{value.date}</Text>
 									<Button
@@ -35,7 +35,20 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	list: {
-
+		marginTop:10,
+	},
+	row: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		paddingVertical: 10,
+		backgroundColor: '#55FF7FFF',
+		marginBottom: 5,
+		borderRadius: 5,
+	},
+	textIt: {
+		fontSize: 22,
+		fontWeight: 'bold'
 	}
 });
 
