@@ -13,9 +13,16 @@ class Articulo extends Component {
 					renderRow={({key, ...value}) => {
 						return(
 								<View style={styles.row}>
-									<Text style={styles.textIt}>{value.medicina}</Text>
-									<Text>{value.dosis}</Text>
-									<Text>{value.date}</Text>
+									<View style={{
+								        flex: 1,
+								        flexDirection: 'column',
+								        justifyContent: 'center',
+								        alignItems: 'center',
+								      }}>
+										<Text style={styles.textIt}>{value.medicina}</Text>
+										<Text>{value.dosis}</Text>
+										<Text>{value.date}</Text>
+									</View>
 									<Button
 										title="Eliminar"
 										onPress={() => this.props.onRemoveItem(key)}
@@ -42,6 +49,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		paddingVertical: 10,
+		paddingHorizontal: 5,
 		backgroundColor: '#55FF7FFF',
 		marginBottom: 5,
 		borderRadius: 5,
