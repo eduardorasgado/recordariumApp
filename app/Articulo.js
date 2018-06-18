@@ -1,6 +1,7 @@
 //para crear cada capsulilla
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ListView, Button } from 'react-native';
+import { Text, View, StyleSheet, ListView, Button, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Articulo extends Component {
 	render(){
@@ -11,6 +12,33 @@ class Articulo extends Component {
 					enableEmptySections
 					dataSource={this.props.dataSource}
 					renderRow={({key, ...value}) => {
+						const activate = (
+							<TouchableOpacity									
+							>		
+								<Icon 
+									name="bell-o"
+									size={20}
+									color="white"
+								/>
+							</TouchableOpacity>
+						)
+						const desactivate = (
+							<TouchableOpacity																	
+							>		
+								<Icon 
+									name="bell-slash-o"
+									size={20}
+									color="white"
+								/>
+							</TouchableOpacity>
+						)
+						const deleteRow = (
+								<Icon
+									name="times"
+									size={20}
+									color="#F92463FF"
+								/>
+						)
 						return(
 								<View style={styles.row}>
 									<View style={{
@@ -23,11 +51,11 @@ class Articulo extends Component {
 										<Text>{value.dosis}</Text>
 										<Text>{value.date}</Text>
 									</View>
-									<Button
-										title="Eliminar"
-										onPress={() => this.props.onRemoveItem(key)}
-										color="#F92463FF"
-									/>
+									<TouchableOpacity
+										onPress={() => this.props.onRemoveItem(key)}									
+									>
+									{deleteRow}
+									</TouchableOpacity>
 								</View>
 							)
 					}}
@@ -49,7 +77,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		paddingVertical: 10,
-		paddingHorizontal: 5,
+		paddingHorizontal: 10,
 		backgroundColor: '#55FF7FFF',
 		marginBottom: 5,
 		borderRadius: 5,

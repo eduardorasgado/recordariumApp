@@ -135,14 +135,14 @@ const styles = StyleSheet.create({
 	wholeStyle: {
     backgroundColor: "white",
     flex:1,
-    height: 700,
+    
     },
     viewStyle: {
     marginTop: 30,
     alignItems: 'center',
     justifyContent: 'center',
     margin: 10,
-    marginBottom: 40,
+    
     },
 });
 
