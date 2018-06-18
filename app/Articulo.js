@@ -1,6 +1,6 @@
 //para crear cada capsulilla
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ListView } from 'react-native';
+import { Text, View, StyleSheet, ListView, Button } from 'react-native';
 
 class Articulo extends Component {
 	render(){
@@ -16,6 +16,11 @@ class Articulo extends Component {
 									<Text>{value.medicina}</Text>
 									<Text>{value.dosis}</Text>
 									<Text>{value.date}</Text>
+									<Button
+										title="Eliminar"
+										onPress={() => this.props.onRemoveItem(key)}
+										color="#F92463FF"
+									/>
 								</View>
 							)
 					}}

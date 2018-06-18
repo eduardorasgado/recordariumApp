@@ -23,11 +23,13 @@ class Index extends Component {
 			date: '',
 		}
 
+		//reconocemos las funciones como propias de la app
         this.handleState = this.handleState.bind(this);
         this.handleAddItems = this.handleAddItems.bind(this);
         this.onChangeMed = this.onChangeMed.bind(this);
         this.onChangeDosis = this.onChangeDosis.bind(this);
 		this.onChangeDate = this.onChangeDate.bind(this);
+		this.handleRemoveItem = this.handleRemoveItem.bind(this);
 	}
 
 	componentWillMount(){
@@ -45,6 +47,7 @@ class Index extends Component {
 		})
 	}
 	
+	//funcion llamada por handleAddItems
 	handleState(items, dataSource, obj = {}){
 		//obj es medicina, dosis y date vacios
 		//nuevos item y data
@@ -58,6 +61,7 @@ class Index extends Component {
 	}
 
 	handleAddItems(){
+		//se manda a llamar al picar en listo
 		if(!this.state.medicina || !this.state.dosis || !this.state.date){
 			return true;
 		}
@@ -75,6 +79,15 @@ class Index extends Component {
 		//guardando la variable en datasource y en items
 		//y se quedan vacias las tres ultimas, son los obj
 		this.handleState(newItems, newItems, {medicina: '', dosis: '', date: ''});
+	}
+
+	handleRemoveItem(key){
+		//por cada item buscamos aquellos en los que item sea 
+		//distinto a key y los guardamos, el que coincida se borra
+		const newItems = this.state.items.filter((item) =>{
+			return item.key !== key
+		})
+		this.handleState(newItems, newItems);
 	}
 
 	onChangeMed(medicina){
@@ -109,6 +122,7 @@ class Index extends Component {
 						/>
 						<Articulo 
 							dataSource={this.state.dataSource}
+							onRemoveItem={this.handleRemoveItem}
 						/>
 					</ScrollView>
 				</View>
