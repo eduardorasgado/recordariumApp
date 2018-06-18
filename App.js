@@ -2,6 +2,7 @@
 import React from 'react';
 import {ScrollView,StyleSheet,View,Text,TextInput,Button,TouchableOpacity} from 'react-native';
 import Clock from './Clock';
+//import { StackNavigator } from 'react-navigation';
 
 //create stuff
 class App extends React.Component{
@@ -63,6 +64,7 @@ class App extends React.Component{
          {/*EStos son los componentes de la aplicacion*/}
           {/*TITULO*/}
           <Text style={styles.header}>Recordarium</Text>
+          {/*Componente de reloj en tiempo real*/}
           <Clock />
           {/*Donde metemos el texto a escribir*/}
           <TextInput 
