@@ -2,7 +2,9 @@
 
 import React, { Component } from 'react';
 import { AsyncStorage, ScrollView, Text, View, StyleSheet, ListView } from 'react-native';
+import PushNotiication from 'react-native-push-notification';
 
+//COmponentes
 import Clock from './Clock';
 import Navegacion from './Navbar';
 import Input from './Input';
