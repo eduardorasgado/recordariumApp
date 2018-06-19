@@ -10,7 +10,7 @@ class Navegacion extends Component {
 			<View style={styles.block}>
 				<View style={styles.content}>				
 					
-					<Text style={styles.textCenter}>Recordarium</Text>
+					<Text style={styles.textCenter}>Control de Medicamento</Text>
 					
 				</View>
 				<Clock />

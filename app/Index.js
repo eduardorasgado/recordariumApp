@@ -85,7 +85,7 @@ class Index extends Component {
 
 		const localNotification = {
 	    title: 'Recordarium: Tus medicinas!',
-	    body: 'Hora:'+key+"; Ya es momento: "+value.medicina+",Dosis: "+value.dosis, // (string) — body text of the notification.
+	    body: 'Tiempo:'+value.date+"; Ya es momento: "+value.medicina+",Dosis: "+value.dosis, // (string) — body text of the notification.
 		    
 		android: // (optional) (object) — notification configuration specific to Android.
 		    {

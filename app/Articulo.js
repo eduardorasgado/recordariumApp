@@ -18,7 +18,7 @@ class Articulo extends Component {
 							>		
 								<Icon 
 									name="bell-o"
-									size={20}
+									size={30}
 									color="white"
 								/>
 							</TouchableOpacity>
@@ -29,7 +29,7 @@ class Articulo extends Component {
 							>		
 								<Icon 
 									name="bell-slash-o"
-									size={20}
+									size={30}
 									color="white"
 								/>
 							</TouchableOpacity>
@@ -37,7 +37,7 @@ class Articulo extends Component {
 						const deleteRow = (
 								<Icon
 									name="times"
-									size={20}
+									size={30}
 									color="#F92463FF"
 								/>
 						);
