@@ -30,9 +30,11 @@ class Index extends Component {
         this.onChangeDosis = this.onChangeDosis.bind(this);
 		this.onChangeDate = this.onChangeDate.bind(this);
 		this.handleRemoveItem = this.handleRemoveItem.bind(this);
+
 	}
 
-	componentWillMount(){
+	//antes de que se monte el componente
+	componentWillMount(){		
 		//persistencia de datos con JSON
 		//por default asyncstorage busca a rocksDB pero si no esta
 		//guarda todo en un textoplano
@@ -57,7 +59,7 @@ class Index extends Component {
 			...obj
 		})
 		//guardamos los valores en async storage
-		AsyncStorage.setItem('items', JSON.stringify(items))
+		AsyncStorage.setItem('items', JSON.stringify(items));
 	}
 
 	handleAddItems(){
@@ -79,6 +81,7 @@ class Index extends Component {
 		//guardando la variable en datasource y en items
 		//y se quedan vacias las tres ultimas, son los obj
 		this.handleState(newItems, newItems, {medicina: '', dosis: '', date: ''});
+		this.handleModalHide()
 	}
 
 	handleRemoveItem(key){
@@ -105,10 +108,14 @@ class Index extends Component {
 			date
 		})
 	}
+
+
 	render(){
 		return(
 			<View style={styles.wholeStyle}>
-				<Navegacion />
+				<Navegacion 
+	
+				/>
 				<View style={styles.viewStyle}>
 					<ScrollView>
 						<Input 
@@ -119,6 +126,8 @@ class Index extends Component {
 							date={this.state.date}
 							medicina={this.state.medicina}
 							dosis={this.state.dosis}
+							isVisible={this.state.isVisible}
+						
 						/>
 						<Articulo 
 							dataSource={this.state.dataSource}
@@ -142,7 +151,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 10,
-    
+
     },
 });
 

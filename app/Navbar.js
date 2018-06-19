@@ -10,12 +10,6 @@ class Navegacion extends Component {
 			<View style={styles.block}>
 				<View style={styles.content}>				
 					
-						<Button 
-			            	title="Agregar"
-			            	onPress={null}
-			            	style={styles.containerButton}
-		            	/>
-					
 					<Text style={styles.textCenter}>Recordarium</Text>
 					
 				</View>

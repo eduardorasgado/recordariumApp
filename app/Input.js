@@ -3,44 +3,50 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableHighlight } from 'react-native';
 import DatePicker from 'react-native-datepicker';
+import Modal from 'react-native-modal';
 
 class Input extends Component {
 	render(){
 		return(
 			<View style={styles.container}>
-				<TextInput
-					value={this.props.medicina}
-					placeholder="Medicamento"
-					style={styles.inputStyle}
-					onChangeText={(medicina) => this.props.onChangeMed(medicina)}
+							
+						<TextInput
+						value={this.props.medicina}
+						placeholder="Medicamento"
+						style={styles.inputStyle}
+						onChangeText={(medicina) => this.props.onChangeMed(medicina)}
+						
+						/>
+						<TextInput
+							value={this.props.dosis}
+							placeholder="Dosis"
+							style={styles.inputStyle}
+							onChangeText={(dosis) => this.props.onChangeDosis(dosis)}
+							
+						/>
+						<DatePicker
+							style={styles.dateStyle}
+							date={this.props.date}
+							mode="datetime"
+							placeholder="Horario"
+							format="YYYY-MM-DD HH:mm"
+							minDate="2018-06-15"
+							maxDate="2050-01-01"
+							confirmBtnText="Aceptar"
+							cancelBtnText="Cancelar"
+							onDateChange={(date) => this.props.onChangeDate(date)}
+						/>
+						<TouchableHighlight style={styles.button}
+											onPress={this.props.onHandleItems}
+						>
+							<Text style={styles.buttonText}>
+								Agregar
+							</Text>
+						</TouchableHighlight>
+
 					
-				/>
-				<TextInput
-					value={this.props.dosis}
-					placeholder="Dosis"
-					style={styles.inputStyle}
-					onChangeText={(dosis) => this.props.onChangeDosis(dosis)}
-					
-				/>
-				<DatePicker
-					style={styles.dateStyle}
-					date={this.props.date}
-					mode="datetime"
-					placeholder="Horario"
-					format="YYYY-MM-DD HH:mm"
-					minDate="2018-06-15"
-					maxDate="2050-01-01"
-					confirmBtnText="Aceptar"
-					cancelBtnText="Cancelar"
-					onDateChange={(date) => this.props.onChangeDate(date)}
-				/>
-				<TouchableHighlight style={styles.button}
-									onPress={this.props.onHandleItems}
-				>
-					<Text style={styles.buttonText}>
-						Listo
-					</Text>
-				</TouchableHighlight>
+	
+
 			</View>
 			)
 	}
@@ -48,7 +54,7 @@ class Input extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		marginTop: 80,
+		marginTop: 20,
 	},
 	inputStyle: {
 	    height: 40,

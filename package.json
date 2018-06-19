@@ -14,6 +14,7 @@
     "react-native-animated-modal": "^1.1.0",
     "react-native-datepicker": "^1.7.2",
     "react-native-keep-awake": "^3.0.1",
+    "react-native-modal": "^6.1.0",
     "react-native-vector-icons": "^4.6.0"
   }
 }

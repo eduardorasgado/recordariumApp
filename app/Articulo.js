@@ -21,7 +21,7 @@ class Articulo extends Component {
 									color="white"
 								/>
 							</TouchableOpacity>
-						)
+						);
 						const desactivate = (
 							<TouchableOpacity																	
 							>		
@@ -31,14 +31,14 @@ class Articulo extends Component {
 									color="white"
 								/>
 							</TouchableOpacity>
-						)
+						);
 						const deleteRow = (
 								<Icon
 									name="times"
 									size={20}
 									color="#F92463FF"
 								/>
-						)
+						);
 						return(
 								<View style={styles.row}>
 									<View style={{
@@ -54,7 +54,7 @@ class Articulo extends Component {
 									<TouchableOpacity
 										onPress={() => this.props.onRemoveItem(key)}									
 									>
-									{deleteRow}
+										{deleteRow}
 									</TouchableOpacity>
 								</View>
 							)
