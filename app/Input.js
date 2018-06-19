@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableHighlight } from 'react-native';
 import DatePicker from 'react-native-datepicker';
-import Modal from 'react-native-modal';
+//import Modal from 'react-native-modal';
 
 class Input extends Component {
 	render(){

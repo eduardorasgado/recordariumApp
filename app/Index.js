@@ -2,8 +2,10 @@
 
 import React, { Component } from 'react';
 import { AsyncStorage, ScrollView, Text, View, StyleSheet, ListView } from 'react-native';
-import PushNotiication from 'react-native-push-notification';
 
+import { Permissions, Notifications } from 'expo';
+
+import moment from 'moment';
 //COmponentes
 import Clock from './Clock';
 import Navegacion from './Navbar';
@@ -26,12 +28,18 @@ class Index extends Component {
 		}
 
 		//reconocemos las funciones como propias de la app
-        this.handleState = this.handleState.bind(this);
-        this.handleAddItems = this.handleAddItems.bind(this);
-        this.onChangeMed = this.onChangeMed.bind(this);
-        this.onChangeDosis = this.onChangeDosis.bind(this);
-		this.onChangeDate = this.onChangeDate.bind(this);
-		this.handleRemoveItem = this.handleRemoveItem.bind(this);
+        this.handleState = this.handleState.bind(this)
+        
+        this.onChangeMed = this.onChangeMed.bind(this)
+        this.onChangeDosis = this.onChangeDosis.bind(this)
+		this.onChangeDate = this.onChangeDate.bind(this)
+		
+		this.handleAddItems = this.handleAddItems.bind(this)
+		this.handleRemoveItem = this.handleRemoveItem.bind(this)
+
+		this.handleToggleNotifications = this.handleToggleNotifications.bind(this)
+		this.handleRemoveNotifications = this.handleRemoveNotifications.bind(this)
+		this.handleNotifications = this.handleNotifications.bind(this)
 
 	}
 
@@ -50,7 +58,58 @@ class Index extends Component {
 			}
 		})
 	}
+
+	//mostrar notificaciones
+	handleToggleNotifications(key, notification){
+		const newItems = this.state.items.map((item) => {
+			//regresar todos los items distintos al item con la key
+			if(item.key !== key) return item
+			return {
+				...item,
+				notification
+			}
+		})
+		//ahora guardamos el grupo de items
+		this.handleState(newItems, newItems)
+	}
+
+	//borrar notificaciones
+	handleRemoveNotifications(key){
+		//Notifications.cancelAllScheduledNotificationsAsync();
+
+		//inactivar la notificacion
+		this.handleToggleNotifications(key, false)
+	}
 	
+	handleNotifications(value, key){
+
+		const localNotification = {
+	    title: 'Recordarium: Tus medicinas!',
+	    body: 'Hora:'+key+"; Ya es momento: "+value.medicina+",Dosis: "+value.dosis, // (string) — body text of the notification.
+		    
+		android: // (optional) (object) — notification configuration specific to Android.
+		    {
+		      sound: true, // (optional) (boolean) — if true, play a sound. Default: false.
+		      //icon (optional) (string) — URL of icon to display in notification drawer.
+		      //color (optional) (string) — color of the notification icon in notification drawer.
+		      priority: 'high', // (optional) (min | low | high | max) — android may present notifications according to the priority, for example a high priority notification will likely to be shown as a heads-up notification.
+		      sticky: false, // (optional) (boolean) — if true, the notification will be sticky and not dismissable by user. The notification must be programmatically dismissed. Default: false.
+		      vibrate: true // (optional) (boolean or array) — if true, vibrate the device. An array can be supplied to specify the vibration pattern, e.g. - [ 0, 500 ].
+		      // link (optional) (string) — external link to open when notification is selected.
+		    }
+		  };
+
+		//let t = new Date();
+		//t.setSeconds(t.getSeconds() + 10);
+		let t = moment(value.date, "YYYY-MM-DD HH:mm").toDate()
+		const schedulingOptions = {
+		    time: t, // (date or number) — A Date object representing when to fire the notification or a number in Unix epoch time. Example: (new Date()).getTime() + 1000 is one second from now.
+		  };
+
+		Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions);
+		this.handleToggleNotifications(key, true)
+	}
+
 	//funcion llamada por handleAddItems
 	handleState(items, dataSource, obj = {}){
 		//obj es medicina, dosis y date vacios
@@ -61,7 +120,7 @@ class Index extends Component {
 			...obj
 		})
 		//guardamos los valores en async storage
-		AsyncStorage.setItem('items', JSON.stringify(items));
+		AsyncStorage.setItem('items', JSON.stringify(items))
 	}
 
 	handleAddItems(){
@@ -82,8 +141,7 @@ class Index extends Component {
 		];
 		//guardando la variable en datasource y en items
 		//y se quedan vacias las tres ultimas, son los obj
-		this.handleState(newItems, newItems, {medicina: '', dosis: '', date: ''});
-		this.handleModalHide()
+		this.handleState(newItems, newItems, {medicina: '', dosis: '', date: ''})
 	}
 
 	handleRemoveItem(key){
@@ -92,7 +150,7 @@ class Index extends Component {
 		const newItems = this.state.items.filter((item) =>{
 			return item.key !== key
 		})
-		this.handleState(newItems, newItems);
+		this.handleState(newItems, newItems)
 	}
 
 	onChangeMed(medicina){
@@ -134,6 +192,8 @@ class Index extends Component {
 						<Articulo 
 							dataSource={this.state.dataSource}
 							onRemoveItem={this.handleRemoveItem}
+							handleRemoveNotifications={this.handleRemoveNotifications}
+							handleNotifications={this.handleNotifications}
 						/>
 					</ScrollView>
 				</View>

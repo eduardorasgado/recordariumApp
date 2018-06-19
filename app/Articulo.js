@@ -13,7 +13,8 @@ class Articulo extends Component {
 					dataSource={this.props.dataSource}
 					renderRow={({key, ...value}) => {
 						const activate = (
-							<TouchableOpacity									
+							<TouchableOpacity
+									onPress={() => this.props.handleNotifications(value, key)}								
 							>		
 								<Icon 
 									name="bell-o"
@@ -23,7 +24,8 @@ class Articulo extends Component {
 							</TouchableOpacity>
 						);
 						const desactivate = (
-							<TouchableOpacity																	
+							<TouchableOpacity
+									onPress={() => this.props.handleRemoveNotifications(key)}															
 							>		
 								<Icon 
 									name="bell-slash-o"
@@ -56,6 +58,7 @@ class Articulo extends Component {
 									>
 										{deleteRow}
 									</TouchableOpacity>
+									{value.notification ? desactivate : activate}
 								</View>
 							)
 					}}
