@@ -3,14 +3,31 @@
 import React, { Component } from 'react';
 import { AsyncStorage, ScrollView, Text, View, StyleSheet, ListView } from 'react-native';
 
+//Para las notificaciones
 import { Permissions, Notifications } from 'expo';
 
+//Para la reproduccion de ls sonidos
+import { Asset, Audio, Font } from 'expo';
+
 import moment from 'moment';
+//import Sound from 'react-native-sound';
 //COmponentes
 import Clock from './Clock';
 import Navegacion from './Navbar';
 import Input from './Input';
 import Articulo from './Articulo';
+
+class PlaylistItem {
+	constructor(uri) {
+		this.uri = uri;
+	}
+}
+
+const PLAYLIST = [
+	new PlaylistItem(
+			'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Podington_Bear_-_Rubber_Robot.mp3'
+		)
+];
 
 
 
@@ -18,13 +35,15 @@ class Index extends Component {
 	constructor(props){
 		super(props);
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
+		this.playbackInstance = null;
 		this.state = {
 			dataSource: ds.cloneWithRows([]),
 			items: [],
 			medicina: '',
 			dosis: '',
 			date: '',
+			isPlaying: false, //MP3
+			isBuffering: false, //MP3
 		}
 
 		//reconocemos las funciones como propias de la app
@@ -41,6 +60,71 @@ class Index extends Component {
 		this.handleRemoveNotifications = this.handleRemoveNotifications.bind(this)
 		this.handleNotifications = this.handleNotifications.bind(this)
 
+		this.onStopPressed = this.onStopPressed.bind(this)
+		this.onPlayPausePressed = this.onPlayPausePressed.bind(this)
+		this._loadNewPlaybackInstance = this._loadNewPlaybackInstance.bind(this)
+		this.playsoundTime = this.playsoundTime.bind(this)
+
+	}
+
+	componentDidMount(){
+		
+		this.interval = setInterval(() => this.onPlayPausePressed(), 1000);
+	}
+
+	async _loadNewPlaybackInstance(playing) {
+
+		const source = { uri: PLAYLIST[0].uri };
+
+		const initialStatus = {
+			shouldPlay: playing,
+			rate: 1.0,
+			volume: 1.0,
+		};
+
+		const { sound, status } = await Audio.Sound.create(
+			source,
+			initialStatus,
+			this._onPlaybackStatusUpdate
+		);
+		this.playbackInstance = sound;
+	}
+
+	async onPlayPausePressed() {
+		if (this.state.isPlaying){
+			try {
+		      const { sound: soundObject, status } = await Expo.Audio.Sound.create(
+		        require('../assets/sounds/Podington_Bear_-_Rubber_Robot.mp3'),
+		        { shouldPlay: this.state.isPlaying }
+		      );
+		      this.setState({
+				isPlaying: false	
+			})
+
+		    setTimeout(function(){
+		    	this.setState({
+		    			isBuffering: true
+		    		});
+		    }.bind(this),10000);
+
+		    if (this.state.isBuffering) {
+		    	soundObject.stopAsync()
+		    	this.setState({
+			    	isBuffering: false
+			    })
+		    }
+
+		      // Your sound is playing!
+		    } catch (error) {
+		      // An error occurred!
+			}
+		}
+	}
+
+	onStopPressed() {
+		if (this.playbackInstance != null) {
+			this.playbackInstance.stopAsync();
+		}
 	}
 
 	//antes de que se monte el componente
@@ -58,6 +142,8 @@ class Index extends Component {
 			}
 		})
 	}
+
+
 
 	//mostrar notificaciones
 	handleToggleNotifications(key, notification){
@@ -99,15 +185,47 @@ class Index extends Component {
 		    }
 		  };
 
+
+		let today = new Date();
+		ms1 = today.getTime();
+		
 		//let t = new Date();
 		//t.setSeconds(t.getSeconds() + 10);
 		let t = moment(value.date, "YYYY-MM-DD HH:mm").toDate()
+
+		ms2 = t.getTime()
+		msTo = ms2 - ms1
+
+		//secondsTo = msTo * .001
+		secondsTo = msTo
+		this.playsoundTime(secondsTo)
+
+
 		const schedulingOptions = {
 		    time: t, // (date or number) — A Date object representing when to fire the notification or a number in Unix epoch time. Example: (new Date()).getTime() + 1000 is one second from now.
 		  };
 
 		Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions);
 		this.handleToggleNotifications(key, true)
+	}
+
+	playsoundTime(secondsTo){
+
+		setTimeout(
+	    function() {
+	    	this.setState({
+	    		isPlaying: true
+	    	});
+
+	    }.bind(this), secondsTo);	
+
+	    
+	    /*
+	    setTimeout(
+	    function() {
+	    	this.onPlayPausePressed();
+	    }, secondsTo);
+		*/
 	}
 
 	//funcion llamada por handleAddItems
@@ -171,6 +289,7 @@ class Index extends Component {
 
 
 	render(){
+		
 		return(
 			<View style={styles.wholeStyle}>
 				<Navegacion 
