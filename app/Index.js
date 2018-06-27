@@ -92,6 +92,7 @@ class Index extends Component {
 
 	async onPlayPausePressed() {
 		if (this.state.isPlaying){
+			//play the sound notification
 			try {
 		      const { sound: soundObject, status } = await Expo.Audio.Sound.create(
 		        require('../assets/sounds/Podington_Bear_-_Rubber_Robot.mp3'),
@@ -100,19 +101,6 @@ class Index extends Component {
 		      this.setState({
 				isPlaying: false	
 			})
-
-		    setTimeout(function(){
-		    	this.setState({
-		    			isBuffering: true
-		    		});
-		    }.bind(this),10000);
-
-		    if (this.state.isBuffering) {
-		    	soundObject.stopAsync()
-		    	this.setState({
-			    	isBuffering: false
-			    })
-		    }
 
 		      // Your sound is playing!
 		    } catch (error) {
